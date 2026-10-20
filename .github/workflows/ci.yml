@@ -1,0 +1,22 @@
+name: runbook-check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check-runbook:
+    name: Check runbook document exists
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify docs/runbook.md exists
+        run: |
+          if [ ! -f docs/runbook.md ]; then
+            echo "docs/runbook.md is missing"
+            exit 1
+          fi
+          echo "docs/runbook.md found"
